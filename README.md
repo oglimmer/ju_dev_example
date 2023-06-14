@@ -10,7 +10,7 @@ docker compose up --build
 curl http://localhost:8080/
 ```
 
-shoule output
+should output
 
 ```json
 [{"id":1,"name":"mega"},{"id":2,"name":"oli"}]
