@@ -1,10 +1,20 @@
-FROM node
+# Use the PHP 8.2.7 Apache base image
+FROM php:8.2.7-apache
 
-COPY . /opt/app
+# Install any dependencies your application requires
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    && docker-php-ext-install pdo pdo_mysql
 
-WORKDIR /opt/app
+# Set the working directory in the container
+WORKDIR /var/www/html
 
-RUN npm i
+# Copy the application files to the container
+COPY . /var/www/html
+
+# Expose the container's port (if needed)
+EXPOSE 80
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["node", "index.js"]
+# Define the command to run when the container starts
+CMD ["apache2-foreground"]
